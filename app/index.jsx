@@ -37,7 +37,7 @@ export default function App() {
             Where Creativity Meets Innovation: Embark on a Journey of Limitless
             Exploration with Aora
           </Text>
-            <CustomButton
+          <CustomButton // Calling the custom button component and passing the required props
             title="Continue with Email"
             handlePress={() => router.push("/sign-in")}
             containerStyles="w-full mt-7"
