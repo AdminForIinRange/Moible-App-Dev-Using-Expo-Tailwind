@@ -5,7 +5,7 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-
+import { createUser } from "../../lib/appwrite";
 const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -14,11 +14,15 @@ const SignUp = () => {
     password: "",
   });
 
+  const submit = () => {
+    createUser();
+  };
+
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
         <View className="w-full min-h-[85vh]  justify-center px-4 my-6 ">
-        <Image
+          <Image
             source={images.logo}
             resizeMode="contain"
             className="w-[115px] h-[34px]"
@@ -52,7 +56,7 @@ const SignUp = () => {
 
           <CustomButton
             title="Sign Up"
-            // handlePress={submit}
+            handlePress={submit}
             containerStyles="mt-7"
             // isLoading={isSubmitting}
           />
