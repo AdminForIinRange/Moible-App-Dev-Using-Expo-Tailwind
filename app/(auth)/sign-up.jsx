@@ -16,6 +16,7 @@ const SignUp = () => {
 
   const submit = () => {
     createUser();
+    
   };
 
   return (
