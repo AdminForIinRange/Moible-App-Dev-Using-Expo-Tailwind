@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { View, Text, ScrollView, Image } from "react-native";
 import { images } from "../constants";
@@ -44,6 +44,9 @@ export default function App() {
           />
         </View>
       </ScrollView>
+      <StatusBar backgroundColor="#161622" style="light" />
+      {/* // changing the status bar color, 
+      // look at the battery percentage and time, its light mode */}
     </SafeAreaView>
   );
 }
