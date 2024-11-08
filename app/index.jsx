@@ -1,14 +1,31 @@
-import { Link } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { View, Text } from 'react-native';
-
-
+import { Link } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { View, Text, ScrollView, Image } from "react-native";
+import { images } from "../constants";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function App() {
   return (
-    <View className="flex-1 items-center justify-center bg-white">
-      <Text className="text-2xl font-500r">Testing Connection to Expo</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView className=" bg-primary h-full ">
+      <ScrollView contentContainerStyle={{ height: "100%" }}>
+        <View className="w-full h-full  items-center px-4 ">
+          <Image
+            source={images.logo}
+            className="w-[130px] h-[84px]"
+            resizeMode="contain"
+          />
+          <Image
+            source={images.cards}
+            className="max--w-[380px] w-full h-[300px] "
+            resizeMode="contain"
+          />
+          <Text className="text-3xl text-white font-bold text-center">
+            Discover Endless Possibilities with{" "}
+            <Text className="text-secondary-200">Aora</Text>
+          </Text>
+          
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
