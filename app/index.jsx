@@ -40,7 +40,7 @@ export default function App() {
           <CustomButton // Calling the custom button component and passing the required props
             title="Continue with Email"
             handlePress={() => router.push("/sign-in")}
-            containerStyles="w-full mt-7"
+            containerStyles="w-[80%] mt-7"
           />
         </View>
       </ScrollView>
