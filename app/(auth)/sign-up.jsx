@@ -18,8 +18,20 @@ const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   // Handles the submission of form data when the user clicks "Sign Up"
   const submit = async () => {
+
+    console.log(form);
+
+    // Remove any spaces or non-alphanumeric characters from the form inputs
+    const username = form.username.replace(/ /g, "");
+    const email = form.email.replace(/ /g, "");
+    const password = form.password.replace(/ /g, "");
+
+
+    console.log(username, email, password);
+
+
     // Alerts the user if any fields are empty
-    if (!form.username || !form.email || !form.password) {
+    if (!username || !email || !password) {
       Alert.alert("Please fill in all fields");
       return;
     }
@@ -28,8 +40,8 @@ const SignUp = () => {
     setSubmitting(true);
 
     try {
-      // Calls createUser with the current form data for signup
-      const result = await createUser(form.username, form.email, form.password);
+      // Calls createUser with the sanitized form data for signup
+      const result = await createUser(email, username, password);
       router.replace("/home"); 
       // Alerts the user if the signup was successful
     } catch (error) {
