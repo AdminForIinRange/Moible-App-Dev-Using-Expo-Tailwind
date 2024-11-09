@@ -12,7 +12,7 @@ import { StatusBar } from "expo-status-bar";
 import { View, Text, ScrollView, Image } from "react-native";
 import { images } from "../constants";
 import { SafeAreaView } from "react-native-safe-area-context";
-import CustomButton from "../components/CustomButton";
+import { CustomButton } from "../components";
 import { useGlobalContext } from "../context/GlobalProvider";
 
 
