@@ -1,14 +1,11 @@
-// The number of files inside the "tabs" folder determines the number of tabs displayed.
-// For example, adding a test.jsx file to the "tabs" folder will add an extra 
-//tab option in the localhost environment.
-
 import { StatusBar } from "expo-status-bar";
 import { Redirect, Tabs } from "expo-router";
 import { Image, Text, View } from "react-native";
 
 import { icons } from "../../constants";
+import { Loader } from "../../components";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
-// basically we use this arrow function as a component to display the tab icons 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
     <View className="flex items-center justify-center gap-2">
@@ -28,38 +25,36 @@ const TabIcon = ({ icon, color, name, focused }) => {
   );
 };
 
-const TabLayout = () => { // this is the main Layout
+const TabLayout = () => {
+  const { loading, isLogged } = useGlobalContext();
+
+  if (!loading && !isLogged) return <Redirect href="/sign-in" />;
+
   return (
     <>
       <Tabs
         screenOptions={{
-          // When the tab is active, set the text color to a bright orange
           tabBarActiveTintColor: "#FFA001",
-          // When the tab is inactive, set the text color to a light gray
           tabBarInactiveTintColor: "#CDCDE0",
-          // Hide the tab label
           tabBarShowLabel: false,
-          // Customize the tab bar style
           tabBarStyle: {
-            // Set the background color of the tab bar to a dark gray
             backgroundColor: "#161622",
-            // Set the border top color to a slightly lighter gray
+            borderTopWidth: 1,
             borderTopColor: "#232533",
-            // Set the height of the tab bar to 84 pixels
             height: 84,
           },
         }}
       >
         <Tabs.Screen
-          name="home" // the name is the is the one that will be used in the URL
+          name="home"
           options={{
             title: "Home",
             headerShown: false,
-            tabBarIcon: ({ color, focused }) => ( /* The tabBarIcon prop is a built-in Expo Router prop */ 
+            tabBarIcon: ({ color, focused }) => (
               <TabIcon
                 icon={icons.home}
-                color={color} 
-                name="Home" 
+                color={color}
+                name="Home"
                 focused={focused}
               />
             ),
@@ -113,6 +108,7 @@ const TabLayout = () => { // this is the main Layout
         />
       </Tabs>
 
+      <Loader isLoading={loading} />
       <StatusBar backgroundColor="#161622" style="light" />
     </>
   );
