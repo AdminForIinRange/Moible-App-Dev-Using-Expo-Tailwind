@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { SplashScreen, Stack } from "expo-router";
+import GlobalProvider from "../context/GlobalProvider";
 
 const RootLayout = () => {
   const [fontsLoaded, error] = useFonts({
@@ -33,23 +34,23 @@ const RootLayout = () => {
   }
 
   return (
-    <Stack>
-      <Stack.Screen name="index" options={{ headerShown: false }} />
-      {/* seems like you can just acess the files via name=""  */}
-      <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      {/* <Stack.Screen name="/search/[query]" options={{ headerShown: false }} /> */}
-    </Stack>
+    <GlobalProvider>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        {/* seems like you can just acess the files via name=""  */}
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="/search/[query]" options={{ headerShown: false }} /> */}
+      </Stack>
+    </GlobalProvider>
   );
 };
 
 export default RootLayout;
 
-
-
-// __        __    _       _       _   _            _         _             _       _                                   _       
-// \ \      / /_ _| |_ ___| |__   | |_| |__   ___  | |_ _   _| |_ ___  _ __(_) __ _| |  _ __  _ __ ___  _ __   ___ _ __| |_   _ 
+// __        __    _       _       _   _            _         _             _       _                                   _
+// \ \      / /_ _| |_ ___| |__   | |_| |__   ___  | |_ _   _| |_ ___  _ __(_) __ _| |  _ __  _ __ ___  _ __   ___ _ __| |_   _
 //  \ \ /\ / / _` | __/ __| '_ \  | __| '_ \ / _ \ | __| | | | __/ _ \| '__| |/ _` | | | '_ \| '__/ _ \| '_ \ / _ \ '__| | | | |
 //   \ V  V / (_| | || (__| | | | | |_| | | |  __/ | |_| |_| | || (_) | |  | | (_| | | | |_) | | | (_) | |_) |  __/ |  | | |_| |
 //    \_/\_/ \__,_|\__\___|_| |_|  \__|_| |_|\___|  \__|\__,_|\__\___/|_|  |_|\__,_|_| | .__/|_|  \___/| .__/ \___|_|  |_|\__, |
-//                                                                                     |_|             |_|                |___/ 
+//                                                                                     |_|             |_|                |___/

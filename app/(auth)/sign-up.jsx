@@ -6,8 +6,10 @@ import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { createUser } from "../../lib/appwrite";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignUp = () => {
+  const { setUser, setIsLoggedIn } = useGlobalContext();
   // Initializes form state to keep track of input values
   // `username`, `email`, and `password` are initially empty strings
   const [form, setForm] = useState({
@@ -42,6 +44,8 @@ const SignUp = () => {
     try {
       // Calls createUser with the sanitized form data for signup
       const result = await createUser(email, password, username);
+      setUser(result);
+      setIsLoggedIn(true);
       router.replace("/home"); 
       // Alerts the user if the signup was successful
     } catch (error) {
