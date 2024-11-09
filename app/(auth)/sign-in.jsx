@@ -13,26 +13,14 @@ const SignIn = () => {
 
   const submit = async () => {
     console.log(form);
-    // if (form.email === "" || form.password === "") {
-    //   Alert.alert("Error", "Please fill in all fields");
-    // }
-    // Remove any spaces or non-alphanumeric characters from the form inputs
-   
 
-    // Alerts the user if any fields are empty
-    if (!form.email || !form.password) {
-      Alert.alert("Please fill in all fields");
-      return;
-    }
-
-    // Sets loading state to true while submitting
     setSubmitting(true);
 
     try {
       // Calls createUser with the sanitized form data for signup
        await signIn(form.email, form.password);
       router.replace("/home");
-      // Alerts the user if the signup was successful
+     
     } catch (error) {
       // Alerts the user if an error occurs
       Alert.alert("Error", error.message);

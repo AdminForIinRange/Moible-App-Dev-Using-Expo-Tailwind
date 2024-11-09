@@ -11,8 +11,8 @@ const SignUp = () => {
   // Initializes form state to keep track of input values
   // `username`, `email`, and `password` are initially empty strings
   const [form, setForm] = useState({
-    username: "",
     email: "",
+    username: "",
     password: "",
   });
   const [isSubmitting, setSubmitting] = useState(false);
@@ -27,7 +27,7 @@ const SignUp = () => {
     const password = form.password.replace(/ /g, "");
 
 
-    console.log(username, email, password);
+    console.log(email, password, username);
 
 
     // Alerts the user if any fields are empty
@@ -41,7 +41,7 @@ const SignUp = () => {
 
     try {
       // Calls createUser with the sanitized form data for signup
-      const result = await createUser(email, username, password);
+      const result = await createUser(email, password, username);
       router.replace("/home"); 
       // Alerts the user if the signup was successful
     } catch (error) {
