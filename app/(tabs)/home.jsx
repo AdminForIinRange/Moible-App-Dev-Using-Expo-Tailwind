@@ -16,9 +16,8 @@ import SearchInput from "../../components/SearchInput";
 import EmptyState from "../../components/EmptyState";
 import useAppwrite from "../../lib/useAppwrite";
 import { getAllPosts, getLatestPosts } from "../../lib/appwrite";
-import VideoCard from "../../components/videoCard";
+import VideoCard from "../../components/VideoCard";
 import Trending from "../../components/Trending";
-
 
 const Home = () => {
   const { data: posts, refetch } = useAppwrite(getAllPosts);
@@ -72,9 +71,7 @@ const Home = () => {
                 Latest Videos
               </Text>
 
-              <Trending
-              posts={latestPosts ?? []}
-               /> 
+              <Trending posts={latestPosts ?? []} />
             </View>
           </View>
         )}
