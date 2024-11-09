@@ -1,20 +1,31 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { FlatList, Image, RefreshControl, Text, View } from "react-native";
+import { Alert, FlatList, Image, RefreshControl, Text, View } from "react-native";
 
 import { images } from "../../constants";
 
 import  SearchInput  from "../../components/SearchInput";
 
 import EmptyState from "../../components/EmptyState";
-
+import useAppwrite from "../../lib/useAppwrite";
+import { getAllPosts } from "../../lib/appwrite";
 const Home = () => {
+  const { data: posts, refetch } = useAppwrite(getAllPosts);
+  // const { data: latestPosts } = useAppwrite(getLatestPosts);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await refetch();
+    setRefreshing(false);
+  };
   return (
-    <SafeAreaView className="bg-primary">
+    <SafeAreaView className="bg-primary h-full">
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        data={posts}
         keyExtractor={(item) => item.$id}
-        renderItem={({ item }) => <Text className="text-3xl">{item.id}</Text>}
+        renderItem={({ item }) => <Text className="text-3xl" key={item.$id}>{item.title}</Text>}
         ListHeaderComponent={() => (
           <View className="flex my-6 px-4 space-y-6">
             <View className="flex justify-between items-start flex-row mb-6">
@@ -54,9 +65,9 @@ const Home = () => {
             subtitle="No videos created yet"
           />
         )}
-        // refreshControl={
-        //   // <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        // }
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       />
     </SafeAreaView>
   );
