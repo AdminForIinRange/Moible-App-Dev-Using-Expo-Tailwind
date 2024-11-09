@@ -1,28 +1,50 @@
 import { useState } from "react";
 import { Link, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
+import { View, Text, ScrollView, Alert, Image } from "react-native";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
 import { createUser } from "../../lib/appwrite";
+
 const SignUp = () => {
-  const [isSubmitting, setSubmitting] = useState(false);
+  // Initializes form state to keep track of input values
+  // `username`, `email`, and `password` are initially empty strings
   const [form, setForm] = useState({
     username: "",
     email: "",
     password: "",
   });
 
-  const submit = () => {
-    createUser();
-    
+  // Handles the submission of form data when the user clicks "Sign Up"
+  const submit = async () => {
+    // Alerts the user if any fields are empty
+    if (!form.username || !form.email || !form.password) {
+      Alert.alert("Please fill in all fields");
+      return;
+    }
+
+    // Sets loading state to true while submitting
+    setSubmitting(true);
+
+    try {
+      // Calls createUser with the current form data for signup
+      const result = await createUser(form.username, form.email, form.password);
+      router.replace("/home"); 
+      // Alerts the user if the signup was successful
+    } catch (error) {
+      // Alerts the user if an error occurs
+      Alert.alert("Error", error.message);
+    } finally {
+      // Resets loading state after attempt
+      setSubmitting(false);
+    }
   };
 
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
-        <View className="w-full min-h-[85vh]  justify-center px-4 my-6 ">
+        <View className="w-full min-h-[85vh] justify-center px-4 my-6">
           <Image
             source={images.logo}
             resizeMode="contain"
@@ -33,13 +55,18 @@ const SignUp = () => {
             Sign Up to Aora
           </Text>
 
+          {/* FormField component for entering the username */}
+          {/* `value` prop reads from form state, displaying `form.username` as input value */}
+          {/* `handleChangeText` updates `username` in form state when the user types */}
           <FormField
             title="Username"
-            value={form.username}
-            handleChangeText={(e) => setForm({ ...form, username: e })}
+            value={form.username} // Display current username value from state
+            handleChangeText={(e) => setForm({ ...form, username: e })} // Update username in form state on change
             otherStyles="mt-10"
           />
 
+          {/* FormField component for entering the email */}
+          {/* Similar pattern as `username`, but updating `email` */}
           <FormField
             title="Email"
             value={form.email}
@@ -48,6 +75,8 @@ const SignUp = () => {
             keyboardType="email-address"
           />
 
+          {/* FormField component for entering the password */}
+          {/* Similar pattern as above, but updating `password` */}
           <FormField
             title="Password"
             value={form.password}
@@ -55,13 +84,16 @@ const SignUp = () => {
             otherStyles="mt-7"
           />
 
+          {/* CustomButton to trigger the `submit` function */}
           <CustomButton
             title="Sign Up"
             handlePress={submit}
             containerStyles="mt-7"
+            // Loading spinner can be shown when `isSubmitting` is true
             // isLoading={isSubmitting}
           />
 
+          {/* Link to Login page if the user already has an account */}
           <View className="flex justify-center pt-5 flex-row gap-2">
             <Text className="text-lg text-gray-100 font-pregular">
               Have an account already?
