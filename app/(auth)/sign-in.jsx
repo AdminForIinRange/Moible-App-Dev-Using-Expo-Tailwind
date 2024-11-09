@@ -5,10 +5,42 @@ import { View, Text, ScrollView, Dimensions, Alert, Image } from "react-native";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
+import { signIn } from "../../lib/appwrite";
 
 const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({ email: "", password: "" });
+
+  const submit = async () => {
+    console.log(form);
+    // if (form.email === "" || form.password === "") {
+    //   Alert.alert("Error", "Please fill in all fields");
+    // }
+    // Remove any spaces or non-alphanumeric characters from the form inputs
+   
+
+    // Alerts the user if any fields are empty
+    if (!form.email || !form.password) {
+      Alert.alert("Please fill in all fields");
+      return;
+    }
+
+    // Sets loading state to true while submitting
+    setSubmitting(true);
+
+    try {
+      // Calls createUser with the sanitized form data for signup
+       await signIn(form.email, form.password);
+      router.replace("/home");
+      // Alerts the user if the signup was successful
+    } catch (error) {
+      // Alerts the user if an error occurs
+      Alert.alert("Error", error.message);
+    } finally {
+      // Resets loading state after attempt
+      setSubmitting(false);
+    }
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -42,7 +74,7 @@ const SignIn = () => {
 
           <CustomButton
             title="Sign In"
-            // handlePress={submit}
+            handlePress={submit}
             containerStyles="mt-7"
             // isLoading={isSubmitting}
           />
