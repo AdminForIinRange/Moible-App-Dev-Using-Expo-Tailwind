@@ -15,7 +15,7 @@ const SignUp = () => {
     email: "",
     password: "",
   });
-
+  const [isSubmitting, setSubmitting] = useState(false);
   // Handles the submission of form data when the user clicks "Sign Up"
   const submit = async () => {
     // Alerts the user if any fields are empty
@@ -44,7 +44,7 @@ const SignUp = () => {
   return (
     <SafeAreaView className="bg-primary h-full">
       <ScrollView>
-        <View className="w-full min-h-[85vh] justify-center px-4 my-6">
+        <View className="w-full min-h-[50vh] justify-center px-4 my-6">
           <Image
             source={images.logo}
             resizeMode="contain"
