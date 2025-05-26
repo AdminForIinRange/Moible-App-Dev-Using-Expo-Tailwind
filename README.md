@@ -1,4 +1,4 @@
-````markdown
+
 # Video Sharing App
 
 A lightweight React Native application for sharing AI-driven videos with an Appwrite backend and smooth, animated UI.
@@ -25,7 +25,7 @@ A lightweight React Native application for sharing AI-driven videos with an Appw
    ```bash
    git clone https://github.com/adrianhajdin/aora.git
    cd aora
-````
+
 
 2. **Install dependencies**
 
