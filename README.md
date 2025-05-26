@@ -47,6 +47,3 @@ A lightweight React Native application for sharing AI-driven videos with an Appw
 * **View** and manage your profile and stats
 
 ---
-
-
-```
