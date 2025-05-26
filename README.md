@@ -22,10 +22,6 @@ A lightweight React Native application for sharing AI-driven videos with an Appw
 ## Quick Start
 
 1. **Clone the repo**  
-   ```bash
-   git clone https://github.com/adrianhajdin/aora.git
-   cd aora
-
 
 2. **Install dependencies**
 
@@ -51,9 +47,6 @@ A lightweight React Native application for sharing AI-driven videos with an Appw
 * **View** and manage your profile and stats
 
 ---
-
-> **Disclaimer**
-> This code is provided for educational purposes. It’s not intended for production trading or financial decisions. Use at your own risk.
 
 ```
 ```
